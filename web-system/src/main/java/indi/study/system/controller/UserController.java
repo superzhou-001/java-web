@@ -1,7 +1,8 @@
-package indi.study.systemmanage.controller;
+package indi.study.system.controller;
 
-import indi.study.systemmanage.entity.User;
-import indi.study.systemmanage.service.UserService;
+import indi.study.system.entity.Users;
+import indi.study.system.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,9 @@ public class UserController {
 
     @RequestMapping(value = "/findUserList")
     public void findUserList() {
-        List<User> userList = userService.findUserList();
-        userList.stream().forEach(user -> {
+
+        List<Users> usersList = userService.findUserList();
+        usersList.stream().forEach(user -> {
             System.out.println(user.getId() + "---" + user.getName() + "---" + user.getAge());
         });
     }

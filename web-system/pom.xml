@@ -8,9 +8,9 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <groupId>indi.study</groupId>
-    <artifactId>web-system-manage</artifactId>
+    <artifactId>web-system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>web-system-manage</name>
+    <name>web-system</name>
 
     <dependencies>
         <!--Mybatis-Plus-->

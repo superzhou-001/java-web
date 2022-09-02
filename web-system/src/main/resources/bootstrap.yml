@@ -14,7 +14,7 @@ mybatis-plus:
   config-locations: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
   configuration:
-    #开启自动驼峰命名规则
+    #开启自动驼峰命名规则,数据库字段对实体映射
     map-underscore-to-camel-case: true
 
 #mysql分页插件配置

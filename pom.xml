@@ -17,7 +17,7 @@
     <!--子模块应用-->
     <modules>
         <!--系统管理模块-->
-        <module>web-system-manage</module>
+        <module>web-system</module>
     </modules>
 
     <properties>
