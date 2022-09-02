@@ -16,3 +16,14 @@ mybatis-plus:
   configuration:
     #开启自动驼峰命名规则
     map-underscore-to-camel-case: true
+
+#mysql分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  #开启优化，如果开启优化，在分页页码结果没有数据的时候,会显示有数据的页码数据
+  reasonable: true
+  #是否支持接口参数来传递分页参数，默认false
+  supportMethodsArguments: false
+  #pageSize=0 返回所有
+  page-size-zero: false
+  params: count=countSql

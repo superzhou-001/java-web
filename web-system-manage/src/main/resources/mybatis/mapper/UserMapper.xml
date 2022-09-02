@@ -3,6 +3,6 @@
 <mapper namespace="indi.study.systemmanage.dao.UserDao">
 
     <select id="findUserList" resultType="indi.study.systemmanage.entity.User">
-        select * from users;
+        select * from users
     </select>
 </mapper>
