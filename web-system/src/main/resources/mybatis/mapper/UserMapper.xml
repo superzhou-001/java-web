@@ -5,4 +5,8 @@
     <select id="findUserList" resultType="indi.study.system.entity.Users">
         select * from users
     </select>
+
+    <select id="findPageUserList" resultType="indi.study.system.entity.Users">
+        select * from users
+    </select>
 </mapper>

@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface UserDao {
     List<Users> findUserList();
+
+    List<Users> findPageUserList();
 }
