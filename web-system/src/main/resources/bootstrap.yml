@@ -6,76 +6,48 @@ spring:
   datasource:
     # 数据库连接池
     druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialSize: 1 #初始化时建立物理连接的个数。
+      minIdle: 1  #最小连接池数量
+      maxActive: 20 #最大连接池数量
+      maxWait: 2000 #获取连接时最大等待时间，单位毫秒。
+      timeBetweenEvictionRunsMillis: 60000 #1) Destroy线程定时监测的间隔
+      minEvictableIdleTimeMillis: 300000 #连接保持空闲而不被驱逐的最长时间。建议值：5* timeBetweenEvictionRunsMillis
+      validationQuery: SELECT 1 #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。
+      testWhileIdle: true #建议配置为true，不影响性能，并且保证安全性。
+      testOnBorrow: false  #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
+      testOnReturn: false #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
+      poolPreparedStatements: true  #是否缓存preparedStatement，也就是PSCache。
+      maxPoolPreparedStatementPerConnectionSize: 20 #要启用PSCache，必须配置大于0，
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #建立新连接时将发送到JDBC驱动程序的连接属性。
+      # 要打开Druid监控页面需要做以下配置
+      stat-view-servlet:
+        enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
+        url-pattern: '/druid/*'
+        allow: 127.0.0.1
+        #deny: 192.168.1.73
+        login-username: admin
+        login-password: 123456
+        reset-enable: false
+      web-stat-filter:
+        enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
+        url-pattern: '/*'
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        session-stat-enable: true
       # 写数据源
       write:
-        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/webstudy_db?useUnicode=true&characterEncoding=utf8
         username: root
         password: root
-        initialSize: 1 #初始化时建立物理连接的个数。
-        minIdle: 1  #最小连接池数量
-        maxActive: 20 #最大连接池数量
-        maxWait: 2000 #获取连接时最大等待时间，单位毫秒。
-        timeBetweenEvictionRunsMillis: 60000 #1) Destroy线程定时监测的间隔
-        minEvictableIdleTimeMillis: 300000 #连接保持空闲而不被驱逐的最长时间。建议值：5* timeBetweenEvictionRunsMillis
-        validationQuery: SELECT 1 #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。
-        testWhileIdle: true #建议配置为true，不影响性能，并且保证安全性。
-        testOnBorrow: false  #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
-        testOnReturn: false #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
-        poolPreparedStatements: true  #是否缓存preparedStatement，也就是PSCache。
-        maxPoolPreparedStatementPerConnectionSize: 20 #要启用PSCache，必须配置大于0，
-        filters: stat,wall  #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
-        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #建立新连接时将发送到JDBC驱动程序的连接属性。
-        # 要打开Druid监控页面需要做以下配置
-        stat-view-servlet:
-          enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
-          url-pattern: '/druid/*'
-          allow: 127.0.0.1
-          #deny: 192.168.1.73
-          login-username: admin
-          login-password: 123456
-          reset-enable: false
-        web-stat-filter:
-          enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
-          url-pattern: '/*'
-          exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-          session-stat-enable: true
+        filters: stat,wall  #druid 监控面板显示监听sql。属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
       # 读数据源
       read:
-        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/webstudy_select_db?useUnicode=true&characterEncoding=utf8
         username: root
         password: root
-        initialSize: 1 #初始化时建立物理连接的个数。
-        minIdle: 1  #最小连接池数量
-        maxActive: 20 #最大连接池数量
-        maxWait: 2000 #获取连接时最大等待时间，单位毫秒。
-        timeBetweenEvictionRunsMillis: 60000 #1) Destroy线程定时监测的间隔
-        minEvictableIdleTimeMillis: 300000 #连接保持空闲而不被驱逐的最长时间。建议值：5* timeBetweenEvictionRunsMillis
-        validationQuery: SELECT 1 #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。
-        testWhileIdle: true #建议配置为true，不影响性能，并且保证安全性。
-        testOnBorrow: false  #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
-        testOnReturn: false #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。建议值：false
-        poolPreparedStatements: true  #是否缓存preparedStatement，也就是PSCache。
-        maxPoolPreparedStatementPerConnectionSize: 20 #要启用PSCache，必须配置大于0，
-        filters: stat,wall  #属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
-        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 #建立新连接时将发送到JDBC驱动程序的连接属性。
-        # 要打开Druid监控页面需要做以下配置
-        stat-view-servlet:
-          enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
-          url-pattern: '/druid/*'
-          allow: 127.0.0.1
-          #deny: 192.168.1.73
-          login-username: admin
-          login-password: 123456
-          reset-enable: false
-        web-stat-filter:
-          enabled: true # 这个一定要加，不然【http://localhost:8080/druid/index.html】页面打不开
-          url-pattern: '/*'
-          exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
-          session-stat-enable: true
+        filters: stat,wall  #druid 监控面板显示监听sql。属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
 
 #配置mybatis扫描mapper文件路径
 mybatis-plus:
