@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="indi.study.system.dao.write.InsertUserDao">
+<mapper namespace="indi.study.system.dao.UserReadDao">
+
+    <select id="findUserList" resultType="indi.study.system.entity.Users">
+        select * from users
+    </select>
+
+    <select id="findPageUserList" resultType="indi.study.system.entity.Users">
+        select * from users
+    </select>
 
     <select id="insertUsers">
         INSERT INTO users (name, age)
@@ -13,5 +21,4 @@
             )
         </foreach>
     </select>
-
 </mapper>
