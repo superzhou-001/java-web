@@ -1,4 +1,4 @@
-package indi.study.system.dao.read;
+package indi.study.system.dao.def;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import indi.study.system.entity.Users;

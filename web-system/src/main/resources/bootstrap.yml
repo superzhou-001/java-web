@@ -34,22 +34,29 @@ spring:
         url-pattern: '/*'
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
         session-stat-enable: true
-      # 写数据源
-      write:
+      # 默认数据源
+      default:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/webstudy_db?useUnicode=true&characterEncoding=utf8
         username: root
         password: root
         filters: stat,wall  #druid 监控面板显示监听sql。属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
+      # 写数据源
+      write:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/webstudy_read_db?useUnicode=true&characterEncoding=utf8
+        username: root
+        password: root
+        filters: stat,wall
       # 读数据源
       read:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://127.0.0.1:3306/webstudy_select_db?useUnicode=true&characterEncoding=utf8
         username: root
         password: root
-        filters: stat,wall  #druid 监控面板显示监听sql。属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
+        filters: stat,wall
 
-#配置mybatis扫描mapper文件路径
+#配置mybatis扫描mapper文件路径---使用druid配置多数据源后该配置失效
 mybatis-plus:
   config-locations: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml,classpath:mybatis/mapper/*/*.xml
