@@ -6,13 +6,11 @@ import com.github.pagehelper.PageInfo;
 import indi.study.system.common.bean.JsonResult;
 import indi.study.system.common.utils.PageFactory;
 import indi.study.system.common.utils.ResultUtil;
-import indi.study.system.dao.def.UserDao;
-import indi.study.system.dao.read.UserReadDao;
-import indi.study.system.dao.read.UserReadTwoDao;
-import indi.study.system.dao.write.InsertUserDao;
+import indi.study.system.dao.UserDao;
 import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,19 +21,12 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    UserReadDao userReadDao;
-    @Resource
-    UserReadTwoDao userReadTwoDao;
-    @Resource
-    InsertUserDao insertUserDao;
-    @Resource
     UserDao userDao;
 
     @Override
     public List<Users> findUserList() {
-        //List<Users> users = userReadTwoDao.selectList(new QueryWrapper<Users>());
         PageHelper.startPage(1, 10);
-        List<Users> usersList = userReadDao.findUserList();
+        List<Users> usersList = userDao.findUserList();
         PageInfo pageInfo = new PageInfo(usersList);
         return usersList;
     }
@@ -70,7 +61,7 @@ public class UserServiceImpl implements UserService {
         user2.setAge(24);
         users.add(user1);
         users.add(user2);
-        insertUserDao.insertUsers(users);
+        userDao.insertUsers(users);
         return ResultUtil.success(1);
     }
 }
