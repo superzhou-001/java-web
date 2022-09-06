@@ -6,6 +6,7 @@ import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,6 +44,10 @@ public class UserController {
     @ResponseBody
     public JsonResult findPageUserListTwo() {
         return userService.findPageUserList();
+    }
+    @RequestMapping(value = "/insert")
+    public ResponseEntity insertUsers() {
+        return ResponseEntity.ok(userService.insertUsers());
     }
 
 }

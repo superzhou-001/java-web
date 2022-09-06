@@ -9,10 +9,12 @@ import indi.study.system.common.utils.PageFactory;
 import indi.study.system.common.utils.ResultUtil;
 import indi.study.system.dao.read.UserDao;
 import indi.study.system.dao.read.UserTwoDao;
+import indi.study.system.dao.write.InsertUserDao;
 import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
     UserDao userDao;
     @Resource
     UserTwoDao userTwoDao;
+    @Resource
+    InsertUserDao insertUserDao;
 
     @Override
     public List<Users> findUserList() {
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public JsonResult findPageUserList() {
         Map<String, String> map = new HashMap<>();
         map.put("offset", "0");
-        map.put("limit", "2");
+        map.put("limit", "10");
         Page<Users> page = PageFactory.getPage(map);
         List<Users> usersList = userDao.findPageUserList();
         return ResultUtil.success(usersList, page.getTotal(), page.getPageNum(), page.getPageSize());
@@ -51,5 +55,20 @@ public class UserServiceImpl implements UserService {
         map.put("xiaozhang", "dddd");
         map.put("xiaohong", "ccc");
         return ResultUtil.success(map);
+    }
+
+    @Override
+    public JsonResult insertUsers() {
+        List<Users> users = new ArrayList<>();
+        Users user1 = new Users();
+        user1.setName("xiaozhou");
+        user1.setAge(27);
+        Users user2 = new Users();
+        user2.setName("xiaohong");
+        user2.setAge(24);
+        users.add(user1);
+        users.add(user2);
+        insertUserDao.insertUsers(users);
+        return ResultUtil.success(1);
     }
 }

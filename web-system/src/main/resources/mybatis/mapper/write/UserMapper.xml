@@ -8,8 +8,8 @@
         <foreach collection="list" item="item" index="index"
                  separator=",">
             (
-            #{name}
-            ,#{age}
+            #{item.name}
+            ,#{item.age}
             )
         </foreach>
     </select>
