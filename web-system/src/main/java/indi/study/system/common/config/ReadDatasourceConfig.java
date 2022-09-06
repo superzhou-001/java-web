@@ -23,7 +23,7 @@ import javax.sql.DataSource;
  *
  * */
 @Configuration
-@MapperScan(basePackages = "indi.study.system.dao.read", sqlSessionTemplateRef  = "sqlSessionTemplate")
+@MapperScan(basePackages = ReadDatasourceConfig.MAPPER_PACKAGE, sqlSessionTemplateRef  = ReadDatasourceConfig.SESSION_TEMPLATE)
 public class ReadDatasourceConfig {
     // mapper类的包路径---dao文件路径
     static final String MAPPER_PACKAGE = "indi.study.system.dao.read";
@@ -31,6 +31,8 @@ public class ReadDatasourceConfig {
     private static final String MAPPER_XML_PATH = "classpath:/mybatis/mapper/read/*.xml";
     // sqlSession工厂名称
     static final String SESSION_FACTORY = "readSqlSessionFactory";
+    // sqlSession实现类
+    static final String SESSION_TEMPLATE = "readSqlSessionTemplate";
     // 数据源名称
     private static final String DATASOURCE_NAME = "readDataSource";
     // 数据源配置的前缀
@@ -39,47 +41,32 @@ public class ReadDatasourceConfig {
     //如demo数据库，命名如下
     private static final String TRANSACTION_MANAGER_NAME = "readTransactionManager";
 
-    @Bean
-    @Primary
-    @ConfigurationProperties("spring.datasource.druid.read")
-    public DataSource readDataSource() {
-        System.out.println("1111111111111111111111");
-        return DruidDataSourceBuilder.create().build();
+    @Bean(name = DATASOURCE_NAME)
+    @ConfigurationProperties(prefix = DATASOURCE_PREFIX)
+    public DruidDataSource druidDataSource() {
+        return new DruidDataSource();
     }
 
-    @Bean
-    @Primary
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("readDataSource") DataSource dataSource) throws Exception{
-        System.out.println("222222222222222222");
-//        final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
-//        sessionFactoryBean.setDataSource(druidDataSource());
-//        try {
-//            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-//            sessionFactoryBean.setMapperLocations(resolver.getResources(MAPPER_XML_PATH));
-//            sessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
-//            return sessionFactoryBean.getObject();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e.getMessage());
-//        }
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        // 开启数据源的小驼峰映射
-        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
-        configuration.setMapUnderscoreToCamelCase(true);
-        bean.setConfiguration(configuration);
-        return bean.getObject();
+    @Bean(name = SESSION_FACTORY)
+    public SqlSessionFactory sqlSessionFactory(@Qualifier(DATASOURCE_NAME) DruidDataSource druidDataSource) throws Exception{
+        final SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+        sessionFactoryBean.setDataSource(druidDataSource);
+        try {
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            sessionFactoryBean.setMapperLocations(resolver.getResources(MAPPER_XML_PATH));
+            sessionFactoryBean.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
+            return sessionFactoryBean.getObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
-    @Bean
-    @Primary
-    public DataSourceTransactionManager transactionManager(@Qualifier("readDataSource") DataSource dataSource) {
-        System.out.println("333333333333333333333333S");
-        return new DataSourceTransactionManager(dataSource);
+    @Bean(name = TRANSACTION_MANAGER_NAME)
+    public DataSourceTransactionManager transactionManager(@Qualifier(DATASOURCE_NAME) DruidDataSource druidDataSource) {
+        return new DataSourceTransactionManager(druidDataSource);
     }
-    @Bean
-    @Primary
-    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
-        System.out.println("44444444444444444444");
+    @Bean(name = SESSION_TEMPLATE)
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier(SESSION_FACTORY) SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
