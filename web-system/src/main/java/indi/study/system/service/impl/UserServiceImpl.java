@@ -17,11 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Resource
-    UserReadDao userReadDao;
     @Resource
     UserDao userDao;
 
@@ -29,7 +28,7 @@ public class UserServiceImpl implements UserService {
     public List<Users> findUserList() {
         //List<Users> users = userReadTwoDao.selectList(new QueryWrapper<Users>());
         PageHelper.startPage(1, 10);
-        List<Users> usersList = userReadDao.findUserList();
+        List<Users> usersList = userDao.findUserList();
         PageInfo pageInfo = new PageInfo(usersList);
         return usersList;
     }
