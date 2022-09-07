@@ -50,6 +50,11 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--lombok中集成了 slf4j、logback、log4j等等日志-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- 添加spring-boot的maven插件，不能少，打jar包时得用 -->
