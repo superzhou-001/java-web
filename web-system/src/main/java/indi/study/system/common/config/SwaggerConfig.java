@@ -85,7 +85,11 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
+
+        return new Docket(DocumentationType.SWAGGER_2)
+                //关闭默认状态码 401、402、403
+                //.useDefaultResponseMessages(false)
+                .apiInfo(apiInfo()).select()
                 .apis(RequestHandlerSelectors.basePackage("indi.study.system.controller")).paths(PathSelectors.any())
                 .build().groupName("web-system接口");
         // 占时取消token
