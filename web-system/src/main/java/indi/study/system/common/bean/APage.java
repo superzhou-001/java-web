@@ -1,20 +1,24 @@
 package indi.study.system.common.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
+@ApiModel(description ="APage")
 public class APage<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // 分页数据
+    @ApiModelProperty("分页数据")
     private T list;
 
-    // 数据总数
+    @ApiModelProperty("数据总数")
     private long count;
 
-    // 当前页
+    @ApiModelProperty("当前页")
     private int pageNo;
 
-    // 页数据数
+    @ApiModelProperty("页数据数")
     private int pageSize;
 
     public T getList() {

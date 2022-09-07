@@ -1,17 +1,21 @@
 package indi.study.system.common.bean;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
+@ApiModel(description ="JsonResult")
 public class JsonResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // 状态编码
+    @ApiModelProperty("状态编码")
     private Integer status;
 
-    // 提示信息
+    @ApiModelProperty("提示信息")
     private String message;
 
-    // 返回数据
+    @ApiModelProperty("返回数据")
     private T data;
 
     public Integer getStatus() {

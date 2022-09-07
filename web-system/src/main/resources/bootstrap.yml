@@ -50,7 +50,7 @@ mybatis-plus:
     # 开发时打开，控制台显示sql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-#mysql分页插件配置
+# mysql分页插件配置
 pagehelper:
   helper-dialect: mysql
   #开启优化，如果开启优化，在分页页码结果没有数据的时候,会显示有数据的页码数据
@@ -60,4 +60,6 @@ pagehelper:
   #pageSize=0 返回所有
   page-size-zero: false
   params: count=countSql
+# 是否开启swagger页面
+Swagger-Enable: true
 
