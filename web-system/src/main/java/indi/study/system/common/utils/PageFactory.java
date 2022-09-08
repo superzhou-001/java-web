@@ -11,11 +11,11 @@ public class PageFactory {
         Page page = null;
         Integer offset = 0;
         Integer limit = 10;
-        if (!StringUtils.isEmpty(map.get("offset"))) {
-            offset = Integer.valueOf(map.get("offset"));
+        if (!StringUtils.isEmpty(map.get("page"))) {
+            offset = Integer.valueOf(map.get("page"));
         }
-        if (!StringUtils.isEmpty(map.get("limit"))) {
-            limit = Integer.valueOf(map.get("limit"));
+        if (!StringUtils.isEmpty(map.get("pageSize"))) {
+            limit = Integer.valueOf(map.get("pageSize"));
         }
         if (limit == -1) {
             page = PageHelper.startPage(offset / limit + 1, 0);

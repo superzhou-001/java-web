@@ -6,10 +6,12 @@ import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -36,8 +38,13 @@ public class UserController {
 
     @ApiOperation("分页查询用户集合")
     @GetMapping(value = "/findPageUserList")
-    public ResponseEntity<JsonResult<APage<Users>>> findPageUserList() {
-        return ResponseEntity.ok(userService.findPageUserList());
+    public ResponseEntity<JsonResult<APage<Users>>> findPageUserList(
+            @ApiParam(name = "page", value = "当前页码", required = true) @RequestParam String page,
+            @ApiParam(name = "pageSize", value = "每页条数", required = true) @RequestParam String pageSize) {
+        Map<String, String> map = new HashMap<>();
+        map.put("page", page);
+        map.put("pageSize", pageSize);
+        return ResponseEntity.ok(userService.findPageUserList(map));
     }
 
     @ApiOperation("查询map信息")
@@ -47,17 +54,33 @@ public class UserController {
     }
 
 
+    /**
+     * @ApiParam swagger 注解 required = true 通过swagger访问必传
+     * @RequestParam
+     * */
     @ApiOperation("分页查询用户数据2")
     @GetMapping(value = "/findPageUserListTwo")
     @ResponseBody
-    public JsonResult<APage<Users>> findPageUserListTwo() {
-        return userService.findPageUserList();
+    public JsonResult<APage<Users>> findPageUserListTwo(
+            @ApiParam(name = "page", value = "当前页码", required = true) @RequestParam String page,
+            @ApiParam(name = "pageSize", value = "每页条数", required = true) @RequestParam String pageSize
+    ) {
+        Map<String, String> map = new HashMap<>();
+        map.put("page", page);
+        map.put("pageSize", pageSize);
+        return userService.findPageUserList(map);
+    }
+
+    @ApiOperation("批量添加用户信息")
+    @PostMapping(value = "/insert")
+    public ResponseEntity insert() {
+        return ResponseEntity.ok(userService.insertUsers());
     }
 
     @ApiOperation("添加用户信息")
-    @PostMapping(value = "/insert")
-    public ResponseEntity insertUsers() {
-        return ResponseEntity.ok(userService.insertUsers());
+    @PostMapping(value = "/insertUsers")
+    public ResponseEntity insertUsers(Users users) {
+        return ResponseEntity.ok(userService.insertUsers(users));
     }
 
 }

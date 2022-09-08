@@ -10,9 +10,11 @@ import java.util.Map;
 public interface UserService {
     List<Users> findUserList();
 
-    JsonResult<APage<Users>> findPageUserList();
+    JsonResult<APage<Users>> findPageUserList(Map<String, String> map);
 
     JsonResult<Map<String, String>> getUserMap();
 
     JsonResult insertUsers();
+
+    JsonResult insertUsers(Users users);
 }

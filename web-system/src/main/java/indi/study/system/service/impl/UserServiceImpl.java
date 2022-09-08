@@ -32,10 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JsonResult findPageUserList() {
-        Map<String, String> map = new HashMap<>();
-        map.put("offset", "0");
-        map.put("limit", "3");
+    public JsonResult findPageUserList(Map<String, String> map) {
         Page<Users> page = PageFactory.getPage(map);
         List<Users> usersList = userDao.findPageUserList();
         return ResultUtil.success(usersList, page.getTotal(), page.getPageNum(), page.getPageSize());
@@ -62,6 +59,14 @@ public class UserServiceImpl implements UserService {
         users.add(user1);
         users.add(user2);
         userDao.insertUsers(users);
+        return ResultUtil.success(1);
+    }
+
+    @Override
+    public JsonResult insertUsers(Users user) {
+        List<Users> usersList = new ArrayList<>();
+        usersList.add(user);
+        userDao.insertUsers(usersList);
         return ResultUtil.success(1);
     }
 }
