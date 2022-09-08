@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 备注：
+ * JsonResult<APage<Users>> 泛型必须写全，不然swagger2无法识别实体参数说明
+ * */
 @RequestMapping("/test")
 @RestController
 @Api(value = "测试接口", tags = {"测试接口"})
@@ -30,10 +33,7 @@ public class UserController {
         });
     }
 
-    /*
-    * 备注：
-    * JsonResult<APage<Users>> 泛型必须写全，不然swagger无法识别实体参数说明
-    * */
+
     @ApiOperation("分页查询用户集合")
     @GetMapping(value = "/findPageUserList")
     public ResponseEntity<JsonResult<APage<Users>>> findPageUserList() {
