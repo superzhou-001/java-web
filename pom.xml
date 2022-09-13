@@ -18,6 +18,7 @@
     <modules>
         <!--系统管理模块-->
         <module>web-system</module>
+        <module>web-generator</module>
     </modules>
 
     <properties>
@@ -29,16 +30,25 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--生效yml配置文件-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <!--lombok中集成了 slf4j、logback、log4j等等日志-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <!--子模块jar版本号管理,子项目需重新引用-->
