@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
+	<property name="LOG_HOME" value="../logs/web-generator/" />
+	<!-- 彩色日志 -->
+	<!-- 彩色日志依赖的渲染类 -->
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+	<conversionRule conversionWord="wex"
+					converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+	<conversionRule conversionWord="wEx"
+					converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+	<!-- 彩色日志格式 -->
+	<property name="CONSOLE_LOG_PATTERN"
+			  value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+	<!-- Console 输出设置 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			<!--<pattern>%date{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) (%file:%line\)- %m%n</pattern>-->
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<!-- 不用彩色控制台输出 -->
+	<!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> -->
+	<!--<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"> -->
+	<!--&lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt; -->
+	<!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50}
+		- %msg%n</pattern> -->
+	<!--</encoder> -->
+	<!--</appender> -->
+
+	<!-- 按照每天生成日志文件 -->
+	<appender name="DEBUG_LOG"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/all.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+		</filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_HOME}/all-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
+			<!--日志文件保留天数-->
+			<maxHistory>60</maxHistory>
+			<!--日志文件最大的大小-->
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<!-- 必须指定，否则不会往文件输出内容 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{25} - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<append>true</append>
+	</appender>
+
+	<appender name="INFO_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/info.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名-->
+			<fileNamePattern>${LOG_HOME}/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!--日志文件保留天数-->
+			<maxHistory>60</maxHistory>
+			<!--日志文件最大的大小-->
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<encoder>
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{25} - %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<!--表示匹配该级别及以上-->
+			<onMatch>ACCEPT</onMatch>
+			<!--表示不匹配该级别以下的-->
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+
+
+	<!-- 出错日志 appender  -->
+	<appender name="ERROR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/error.log</file>
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- 按天回滚 daily -->
+			<!-- log.dir 在maven profile里配置 -->
+			<fileNamePattern>${LOG_HOME}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<!-- 日志最大的历史 60天 -->
+			<maxHistory>60</maxHistory>
+			<!--日志文件最大的大小-->
+			<maxFileSize>10MB</maxFileSize>
+		</rollingPolicy>
+		<!-- 此日志文档只记录ERROR级别的 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<!--表示匹配该级别及以上-->
+			<onMatch>ACCEPT</onMatch>
+			<!--表示不匹配该级别以下的-->
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{25} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--myibatis log configure-->
+	<logger name="com.apache.ibatis" level="TRACE"/>
+	<logger name="java.sql.Connection" level="DEBUG"/>
+	<!--控制台打印sql-->
+	<logger name="com.factory" level="DEBUG"/>
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+
+	<!--异步日志 日志级别-->
+	<appender name="ASYNC_DEBUG_LOG"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+		<discardingThreshold>0</discardingThreshold>
+		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+		<queueSize>512</queueSize>
+		<appender-ref ref="DEBUG_LOG" />
+	</appender>
+
+	<appender name="ASYNC_INFO_LOG"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>512</queueSize>
+		<appender-ref ref="INFO_LOG" />
+	</appender>
+
+	<appender name="ASYNC_ERROR_LOG"
+		class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>512</queueSize>
+		<appender-ref ref="ERROR_LOG" />
+	</appender>
+
+	<!-- 根日志,所有logger默认继承自root，打印信息向上级传递，所以以上logger所打印的日志默认被 STDOUT appender再处理一遍，
+    也就是会被打印到控制台，可以再通过设置logger的additivity="false"，使得不再向上传递
+	-->
+	<root>
+		<!-- 打印info级别日志及以上级别日志 -->
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ASYNC_DEBUG_LOG" />
+		<appender-ref ref="ASYNC_INFO_LOG" />
+		<appender-ref ref="ASYNC_ERROR_LOG" />
+	</root>
+	<!--哪个环境用那个配置文件-->
+	<!--<springProfile>
+		&lt;!&ndash; 日志输出级别 &ndash;&gt;
+		<root level="INFO">
+			<appender-ref ref="STDOUT" />
+			<appender-ref ref="DEBUG_LOG" />
+			<appender-ref ref="INFO_LOG" />
+			<appender-ref ref="ERROR_LOG" />
+		</root>
+	</springProfile>-->
+</configuration>
