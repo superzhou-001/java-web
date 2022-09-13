@@ -49,6 +49,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--json转换-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.58</version>
+        </dependency>
     </dependencies>
 
     <!--子模块jar版本号管理,子项目需重新引用-->
@@ -135,7 +141,12 @@
                 <version>1.9.6</version>
             </dependency>
 
-
+            <!--kafka引用-->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>2.5.6.RELEASE</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
