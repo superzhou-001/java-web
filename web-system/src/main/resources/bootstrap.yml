@@ -39,36 +39,50 @@ spring:
         url-pattern: '/*'
         exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
         session-stat-enable: true
-  # springboot集成kafka配置
-  kafka:
+  kafka_one:
     bootstrap-servers: 127.0.0.1:9092
-    # 生产者配置
     producer:
       # 重试次数
       retries: 0
-      # 应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+      # 采取ack机制
       #acks: 1
-      # 每次批量发送消息的数量
+      # 批量提交的数据大小 16kb
       batch-size: 16384
       # 生产者暂存数据的缓冲区大小
       buffer-memory: 33554432
       # 序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    # 消费者配置
     consumer:
-      # 消费组
-      group-id: kafka_test
+      # 消费者组
+      group-id: kafka_testA
+      # 是否自动提交偏移量
+      enable-auto-commit: true
+      #消费消息后间隔多长时间提交偏移量
+      auto-commit-interval: 100
       # earliest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
       # latest:当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，消费新产生的该分区下的数据
       # none:topic各分区都存在已提交的offset时，从offset后开始消费；只要有一个分区不存在已提交的offset，则抛出异常
       auto-offset-reset: earliest
-      # 是否自动提交偏移量
-      enable-auto-commit: true
       # 序列化方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
+  kafka_two:
+    bootstrap-servers: 127.0.0.1:9093
+    producer:
+      retries: 0
+      #acks: 1
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: kafka_testA
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      auto-offset-reset: earliest
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 #配置mybatis扫描mapper文件路径---使用druid配置多数据源后该配置失效
 mybatis-plus:
