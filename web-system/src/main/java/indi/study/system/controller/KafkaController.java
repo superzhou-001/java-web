@@ -31,9 +31,9 @@ public class KafkaController {
     @Resource
     private UserService userService;
 
-    @GetMapping(value = "/sendKafkaMagOne")
+    @GetMapping(value = "/sendKafkaMsg")
     @ResponseBody
-    public JsonResult sendKafkaMagOne() {
+    public JsonResult sendKafkaMsg() {
         List<Users> list = userService.findUserList();
         kafkaTemplate.send("kafka_test", JSON.toJSON(list).toString());
         kafkaTwoTemplate.send("kafka_test", JSON.toJSON(list).toString());
