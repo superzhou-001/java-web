@@ -13,6 +13,13 @@
     <name>web-system</name>
 
     <dependencies>
+
+        <!--aop集成-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!--Mybatis-Plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
