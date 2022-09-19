@@ -2,6 +2,7 @@ package indi.study.system.controller;
 
 import indi.study.system.common.bean.APage;
 import indi.study.system.common.bean.JsonResult;
+import indi.study.system.common.customize.SystemLog;
 import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -26,6 +27,7 @@ public class UserController {
     @Resource
     UserService userService;
 
+    @SystemLog
     @ApiOperation("查询用户集合")
     @GetMapping(value = "/findUserList")
     public void findUserList() {
