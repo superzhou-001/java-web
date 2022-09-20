@@ -42,12 +42,12 @@ public class KafkaConfig {
     @Value("${spring.kafka_one.consumer.auto-commit-interval}")
     private String autoCommitInterval;
 
-    @Bean(name = "kafkaOneTemplate")
-    public KafkaTemplate<String, String> kafkaLenovoTemplate() {
+    //@Bean(name = "kafkaOneTemplate")
+    public KafkaTemplate<String, String> kafkaOneTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "kafkaOneContainerFactory")
+    //@Bean(name = "kafkaOneContainerFactory")
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, String>> kafkaContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
@@ -69,7 +69,7 @@ public class KafkaConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.RETRIES_CONFIG, retries);
-//        props.put(ProducerConfig.ACKS_CONFIG, "all");
+        //props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);

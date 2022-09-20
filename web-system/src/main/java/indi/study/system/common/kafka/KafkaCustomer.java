@@ -12,12 +12,12 @@ import org.springframework.kafka.annotation.KafkaListener;
 public class KafkaCustomer {
 
     //不指定group，默认取spring boot里配置的
-    @KafkaListener(topics = "kafka_test", containerFactory = "kafkaOneContainerFactory")
+    //@KafkaListener(topics = "kafka_test", containerFactory = "kafkaOneContainerFactory")
     public void listen(String mes) {
         log.info("topics : kafka_test-------------"+mes);
     }
 
-    @KafkaListener(topics = "kafka_test", containerFactory = "kafkaTwoContainerFactory")
+    //@KafkaListener(topics = "kafka_test", containerFactory = "kafkaTwoContainerFactory")
     public void listenTwo(String mes) {
         log.info("factory: kafkaTwoContainerFactory ---- topics : kafka_test-------------"+mes);
     }
