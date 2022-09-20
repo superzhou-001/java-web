@@ -1,6 +1,7 @@
 package indi.study.system.common.aspect;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -39,13 +40,13 @@ public class SystemLogAspect {
 
     // 前置通知
     @Before("pointcut()")
-    public void doBefore(ProceedingJoinPoint joinPoint) throws Exception {
+    public void doBefore(JoinPoint joinPoint) throws Exception {
         log.info("在标注了@SystemLog的方法执行之前执行... ...");
     }
 
-    // 环绕通知
+    // 环绕通知--ProceedingJoinPoint 作为环绕使用
     @Around("pointcut()")
-    public void doAround() {
+    public void doAround(ProceedingJoinPoint joinPoint) {
         log.info("在标注了@SystemLog的方法执行多次... ...");
     }
 }

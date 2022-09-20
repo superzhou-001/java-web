@@ -22,10 +22,10 @@ import java.util.List;
 @RequestMapping(value = "/kafka")
 public class KafkaController {
 
-    @Resource(name = "kafkaOneTemplate")
+    //@Resource(name = "kafkaOneTemplate")
     private KafkaTemplate kafkaTemplate;
 
-    @Resource(name = "kafkaTwoTemplate")
+    //@Resource(name = "kafkaTwoTemplate")
     private KafkaTemplate kafkaTwoTemplate;
 
     @Resource

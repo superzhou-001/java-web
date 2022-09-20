@@ -38,12 +38,12 @@ public class KafkaTwoConfig {
     @Value("${spring.kafka_two.consumer.auto-commit-interval}")
     private String autoCommitInterval;
 
-    @Bean(name = "kafkaTwoTemplate")
+    //@Bean(name = "kafkaTwoTemplate")
     public KafkaTemplate<String, String> kafkaLenovoTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
-    @Bean(name = "kafkaTwoContainerFactory")
+    //@Bean(name = "kafkaTwoContainerFactory")
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Integer, String>> kafkaContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Integer, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
