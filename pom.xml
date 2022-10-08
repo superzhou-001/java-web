@@ -18,7 +18,10 @@
     <modules>
         <!--系统管理模块-->
         <module>web-system</module>
+        <!--代码生成器模块-->
         <module>web-generator</module>
+        <!--规则引擎模块-->
+        <module>web-rule-engine</module>
     </modules>
 
     <properties>
