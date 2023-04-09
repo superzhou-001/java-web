@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
         map.put("xiaosan", "yyyy");
         map.put("xiaozhang", "dddd");
         map.put("xiaohong", "ccc");
-        
         return ResultUtil.success(map);
     }
 
