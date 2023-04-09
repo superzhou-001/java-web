@@ -39,7 +39,7 @@ public class KafkaTwoConfig {
     private String autoCommitInterval;
 
     //@Bean(name = "kafkaTwoTemplate")
-    public KafkaTemplate<String, String> kafkaLenovoTemplate() {
+    public KafkaTemplate<String, String> kafkaTwoTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
