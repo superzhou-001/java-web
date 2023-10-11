@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
  * @Async---TheadPoolConfig线程池配置---什么方法需要线程处理加上@Async即可
  * 注解很方便，但缺点是当我们调整了执行周期的时候，需要重启应用才能生效，
  * 这多少有些不方便。为了达到实时生效的效果，可以使用接口来完成定时任务(SchedulingConfigurer)。
+ * 第三方定时任务 xxl-job
  * */
 @Slf4j
 @Configuration
