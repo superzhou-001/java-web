@@ -22,6 +22,8 @@
         <module>web-generator</module>
         <!--规则引擎模块-->
         <module>web-rule-engine</module>
+        <!--java-juc学习-->
+        <module>web-juc</module>
     </modules>
 
     <properties>

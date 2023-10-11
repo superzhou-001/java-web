@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.concurrent.Executors;
 
 /**
@@ -30,7 +31,7 @@ public class ScheduleConfig implements SchedulingConfigurer {
         return new Runnable() {
             @Override
             public void run() {
-                log.info("基于数据库查询Cron定时任务-------");
+                //log.info("基于数据库查询Cron定时任务------- "+ new Date());
             }
         };
     }

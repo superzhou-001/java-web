@@ -3,11 +3,14 @@ package indi.study.system.controller;
 import indi.study.system.common.bean.APage;
 import indi.study.system.common.bean.JsonResult;
 import indi.study.system.common.customize.SystemLog;
+import indi.study.system.common.utils.ContextUtil;
+import indi.study.system.common.utils.RedisClient;
 import indi.study.system.entity.Users;
 import indi.study.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +29,8 @@ public class UserController {
 
     @Resource
     UserService userService;
+    @Resource
+    RedisClient redisClient;
 
     @SystemLog
     @ApiOperation("查询用户集合")
@@ -82,6 +87,8 @@ public class UserController {
     @ApiOperation("添加用户信息")
     @PostMapping(value = "/insertUsers")
     public ResponseEntity insertUsers(Users users) {
+        RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ContextUtil.getBean("redisTemplate");
+        redisClient.set(users.getId().toString(), users.getName());
         return ResponseEntity.ok(userService.insertUsers(users));
     }
 

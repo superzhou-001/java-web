@@ -17,7 +17,7 @@ INSERT INTO `users` VALUES (7, 'meiling', 20);
 
 DROP TABLE IF EXISTS `cron`;
 CREATE TABLE `cron`  (
-    `cron_id` varchar(30) NOT NULL PRIMARY KEY,
+    `id` varchar(30) NOT NULL PRIMARY KEY,
     `cron` varchar(30) NOT NULL,
      UNIQUE INDEX `id`(`id`) USING BTREE
 );
