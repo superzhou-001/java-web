@@ -48,7 +48,7 @@ public class T01_MyContainer<T> {
         // 定义生产者
         for (int i = 0; i < 2 ; i++) {
             new Thread(() -> {
-                for (int j = 0; j < 25; j++) {
+                for (int j = 0; j < 10; j++) {
                     myc.put(Thread.currentThread().getName() + " " + j);
                 }
             }, "P"+i).start();
@@ -59,10 +59,10 @@ public class T01_MyContainer<T> {
             e.printStackTrace();
         }
         // 定义消费者
-        for (int i = 0; i < 10 ; i++) {
+        for (int i = 0; i < 20 ; i++) {
             new Thread(() ->{
-                for (int j = 0; j < 25 ; j++) {
-                    System.out.println(myc.get());
+                for (int j = 0; j < 10 ; j++) {
+                    System.out.println(Thread.currentThread().getName()+" "+myc.get());
                 }
             }, "C"+i).start();
         }

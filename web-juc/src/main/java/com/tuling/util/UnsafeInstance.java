@@ -13,6 +13,13 @@ import java.lang.reflect.Field;
  * @description :
  */
 public class UnsafeInstance {
+
+    public String str = "6";
+
+    public void change(String str) {
+        str="10";
+    }
+
     public static Unsafe reflectGetUnsafe() {
         try {
             Field field = Unsafe.class.getDeclaredField("theUnsafe");
@@ -25,9 +32,12 @@ public class UnsafeInstance {
     }
 
     public static void main(String[] args) {
-        int j=1;
-        reflectGetUnsafe().loadFence();
-        int i= 0;
+//        int j=1;
+//        reflectGetUnsafe().loadFence();
+//        int i= 0;
+        UnsafeInstance sv=new UnsafeInstance();
+        sv.change(sv.str);
+        System.out.println(sv.str);
     }
 }
 
