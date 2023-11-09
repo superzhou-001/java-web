@@ -1,0 +1,6 @@
+2023-10-11 11:40:10.179 [main] INFO  i.s.s.WebSystemManageApplicationTests - No active profile set, falling back to default profiles: default
+2023-10-11 11:40:11.948 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2023-10-11 11:40:11.953 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-10-11 11:40:11.997 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29ms. Found 0 Redis repository interfaces.
+2023-10-11 11:40:12.400 [main] INFO  o.s.c.c.s.GenericScope - BeanFactory id=0be1a760-caa0-3dcb-a7a2-fa3537b4331e
+2023-10-11 11:40:13.746 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource

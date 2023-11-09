@@ -34,7 +34,7 @@ public class UserController {
 
     @SystemLog
     @ApiOperation("查询用户集合")
-    @GetMapping(value = "/findUserList")
+    @PostMapping(value = "/findUserList")
     public void findUserList() {
         List<Users> usersList = userService.findUserList();
         usersList.stream().forEach(user -> {
@@ -44,7 +44,7 @@ public class UserController {
 
 
     @ApiOperation("分页查询用户集合")
-    @GetMapping(value = "/findPageUserList")
+    @PostMapping(value = "/findPageUserList")
     public ResponseEntity<JsonResult<APage<Users>>> findPageUserList(
             @ApiParam(name = "page", value = "当前页码", required = true) @RequestParam String page,
             @ApiParam(name = "pageSize", value = "每页条数", required = true) @RequestParam String pageSize) {
@@ -66,7 +66,7 @@ public class UserController {
      * @RequestParam
      * */
     @ApiOperation("分页查询用户数据2")
-    @GetMapping(value = "/findPageUserListTwo")
+    @PostMapping(value = "/findPageUserListTwo")
     @ResponseBody
     public JsonResult<APage<Users>> findPageUserListTwo(
             @ApiParam(name = "page", value = "当前页码", required = true) @RequestParam String page,
