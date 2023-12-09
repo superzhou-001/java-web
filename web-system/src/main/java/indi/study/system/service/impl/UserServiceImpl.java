@@ -6,10 +6,16 @@ import com.github.pagehelper.PageInfo;
 import indi.study.system.common.bean.JsonResult;
 import indi.study.system.common.utils.PageFactory;
 import indi.study.system.common.utils.ResultUtil;
+import indi.study.system.dao.CronDao;
 import indi.study.system.dao.UserDao;
 import indi.study.system.entity.Users;
+import indi.study.system.service.CronService;
 import indi.study.system.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -22,6 +28,10 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     UserDao userDao;
+    @Resource
+    CronService cronService;
+    @Resource
+    UserService userService;
 
     @Override
     public List<Users> findUserList() {
@@ -39,6 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public JsonResult<Map<String, String>> getUserMap() {
         Map<String, String> map = new HashMap<>();
         map.put("xiaosan", "yyyy");
@@ -69,4 +80,24 @@ public class UserServiceImpl implements UserService {
         userDao.insertUsers(usersList);
         return ResultUtil.success(1);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public JsonResult upData() {
+        // 修改corn
+        cronService.upCron();
+        // 删除用户
+        userService.upUser();
+        int a = 1/0;
+        return ResultUtil.success(1);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.NESTED)
+    public JsonResult upUser() {
+        userDao.upUser(10);
+        return ResultUtil.success(1);
+    }
+
+
 }

@@ -10,11 +10,13 @@
         <module name="web-generator" />
         <module name="web-rule-engine" />
         <module name="web-juc" />
+        <module name="web-computer-test" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="web-computer-test" options="-parameters" />
       <module name="web-generator" options="-parameters" />
       <module name="web-juc" options="-parameters" />
       <module name="web-rule-engine" options="-parameters" />

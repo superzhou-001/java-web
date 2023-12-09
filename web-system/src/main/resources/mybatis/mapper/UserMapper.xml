@@ -21,4 +21,7 @@
             )
         </foreach>
     </select>
+    <delete id="upUser">
+        delete from users where id = #{id}
+    </delete>
 </mapper>

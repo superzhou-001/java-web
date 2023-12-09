@@ -46,8 +46,8 @@ public class UserController {
     @ApiOperation("分页查询用户集合")
     @PostMapping(value = "/findPageUserList")
     public ResponseEntity<JsonResult<APage<Users>>> findPageUserList(
-            @ApiParam(name = "page", value = "当前页码", required = true) @RequestParam String page,
-            @ApiParam(name = "pageSize", value = "每页条数", required = true) @RequestParam String pageSize) {
+            @ApiParam(name = "page", value = "当前页码", required = true)  String page,
+            @ApiParam(name = "pageSize", value = "每页条数", required = true)  String pageSize) {
         Map<String, String> map = new HashMap<>();
         map.put("page", page);
         map.put("pageSize", pageSize);
@@ -90,6 +90,12 @@ public class UserController {
         RedisTemplate<String, Object> redisTemplate = (RedisTemplate<String, Object>) ContextUtil.getBean("redisTemplate");
         redisClient.set(users.getId().toString(), users.getName());
         return ResponseEntity.ok(userService.insertUsers(users));
+    }
+    @ApiOperation("修改信息测试事务")
+    @PostMapping(value = "/upData")
+    public ResponseEntity upData(){
+        userService.upData();
+        return ResponseEntity.ok(1);
     }
 
 }

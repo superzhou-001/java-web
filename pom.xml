@@ -24,6 +24,8 @@
         <module>web-rule-engine</module>
         <!--java-juc学习-->
         <module>web-juc</module>
+        <!--华为机试学习-->
+        <module>web-computer-test</module>
     </modules>
 
     <properties>

@@ -17,4 +17,9 @@ public interface UserService {
     JsonResult insertUsers();
 
     JsonResult insertUsers(Users users);
+
+    JsonResult upData();
+
+    JsonResult upUser();
+
 }

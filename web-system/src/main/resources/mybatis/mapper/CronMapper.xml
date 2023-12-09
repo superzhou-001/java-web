@@ -4,4 +4,7 @@
     <select id="getCron" resultType="java.lang.String">
         select cron from cron where id = #{id}
     </select>
+    <update id="upCron">
+        update cron set cron = #{cron} where id = 1
+    </update>
 </mapper>
