@@ -66,7 +66,7 @@ class WebSystemManageApplicationTests {
             executorService.execute(() ->{
                 try {
                     lock.lock(5, TimeUnit.SECONDS);
-                    System.out.println(Thread.currentThread().getName()+"准备累加---");
+                    System.out.println(Thread.currentThread().getName()+"准备累加-----");
                     Thread.sleep(2000);
                     count++;
                 } catch (InterruptedException e) {
