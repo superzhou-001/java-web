@@ -22,4 +22,6 @@ public interface UserService {
 
     JsonResult upUser();
 
+    String getSqEl(String sqEl, Users user);
+
 }

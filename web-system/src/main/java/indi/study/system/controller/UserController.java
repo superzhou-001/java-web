@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 备注：
  * JsonResult<APage<Users>> 泛型必须写全，不然swagger2无法识别实体参数说明
- * */
+ * */          
 @RequestMapping("/test")
 @RestController
 @Api(value = "测试接口", tags = {"测试接口"})
@@ -77,6 +77,16 @@ public class UserController {
         map.put("pageSize", pageSize);
         return userService.findPageUserList(map);
     }
+
+    @ApiOperation("SqEl注入测试")
+    @GetMapping(value = "/getSqEL/{sqel}")
+    @ResponseBody
+    public String getSqEL(@PathVariable("sqel") String sqel) {
+        Users user = new Users();
+        user.setName("abc");
+        return userService.getSqEl(sqel, user);
+    }
+
 
     @ApiOperation("批量添加用户信息")
     @PostMapping(value = "/insert")

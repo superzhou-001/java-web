@@ -12,11 +12,20 @@ import indi.study.system.entity.Users;
 import indi.study.system.service.CronService;
 import indi.study.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.SpelParserConfiguration;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +41,21 @@ public class UserServiceImpl implements UserService {
     CronService cronService;
     @Resource
     UserService userService;
+    @Value("${spring.value}")
+    private String value;
+
+    @PostConstruct
+    public void init() {
+        System.out.println("value = " + value);
+        String value2 = "#{T(Runtime).getRuntime().exec('open -a Calculator')}";
+        StandardEvaluationContext ctx = new StandardEvaluationContext();
+        SpelParserConfiguration config = new SpelParserConfiguration(true, true);
+        ExpressionParser parser = new SpelExpressionParser(config);
+        EvaluationContext context = new StandardEvaluationContext();
+        //parser.parseExpression(value2);
+        String purchaserId = (String)parser.parseExpression(value).getValue(ctx);
+        System.out.println("------"+ purchaserId);
+    }
 
     @Override
     public List<Users> findUserList() {
@@ -99,5 +123,9 @@ public class UserServiceImpl implements UserService {
         return ResultUtil.success(1);
     }
 
-
+    @Override
+    @Cacheable(value = "users", key = "'user-' + #sqEl")
+    public String getSqEl(String sqEl, Users user) {
+        return "abc";
+    }
 }

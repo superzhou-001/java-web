@@ -24,8 +24,6 @@
         <module>web-rule-engine</module>
         <!--java-juc学习-->
         <module>web-juc</module>
-        <!--华为机试学习-->
-        <module>web-computer-test</module>
     </modules>
 
     <properties>
@@ -61,6 +59,17 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.58</version>
+        </dependency>
+        <!--git批量查询-->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>5.13.2.202306221912-r</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.55</version>
         </dependency>
     </dependencies>
 
